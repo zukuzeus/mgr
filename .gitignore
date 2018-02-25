@@ -41,3 +41,6 @@ tmtagsHistory
 .bundle
 
 .venv
+*.mov
+*.avi
+*.mp4
