@@ -114,19 +114,21 @@ fps = 29
 
 # transform_and_save_as_video('DSCN9953.MOV', 'videosmall.avi', background_deletion)
 # transform_and_save_as_video('DSCN9953.MOV', 'videosmallnone.avi')
-# movies = os.listdir('resources')
-#
-#
-# start = time.time()
-# with tqdm(total=movies.__len__(), ncols=150, position=0, desc='przetwarzanie katalogu z filmami') as pbar2:
-#     for file in movies:
-#         print(os.path.splitext(os.path.basename(file))[0] + '_backgroundcut.avi' + ' file save')
-#         outputfilename = os.path.splitext(os.path.basename(file))[0] + '_backgroundcut.avi'
-#         transform_and_save_as_video(os.path.join('resources', file), outputfilename, background_deletion)
-#         pbar2.update()
-#
-# end = time.time()
-# print("--- %s seconds ---" % (end - start))
+
+def convert_videos_in_directory(path_to_directory_string):
+    movies = os.listdir(path_to_directory_string)
+    start = time.time()
+    with tqdm(total=movies.__len__(), ncols=150, position=0, desc='przetwarzanie katalogu z filmami') as pbar2:
+        for file in movies:
+            print(os.path.splitext(os.path.basename(file))[0] + '_backgroundcut.avi' + ' file save')
+            outputfilename = os.path.splitext(os.path.basename(file))[0] + '_backgroundcut.avi'
+            transform_and_save_as_video(os.path.join('resources', file), outputfilename, background_deletion)
+            pbar2.update()
+    end = time.time()
+    print("--- %s seconds ---" % (end - start))
+
+
+# convert_videos_in_directory()
 
 
 # convert_video_to_frames('DSCN9955.MOV', 'testframesfuncshadow', background_deletion)
