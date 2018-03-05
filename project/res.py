@@ -31,7 +31,7 @@ def frames_to_video(inputpath, outputpath, fps):
 
 
 # detect background and delete it
-def background_deletion(img, background_substactor=cv2.createBackgroundSubtractorMOG2()):
+def background_deletion(img, background_substactor=cv2.createBackgroundSubtractorMOG2(detectShadows=False)):
     return background_substactor.apply(img)
 
 
@@ -58,6 +58,7 @@ def convert_frames_to_video(input_dir_path, outputpath):
 
 
 def convert_video_to_frames(videopath, outputdirpath, transform_image_function=None):
+    # size = (1280, 720)
     size = (1280, 720)
     if not os.path.exists(outputdirpath):
         os.mkdir(outputdirpath)
