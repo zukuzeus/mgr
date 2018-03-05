@@ -57,13 +57,15 @@ def convert_frames_to_video(input_dir_path, outputpath):
     out.release()
 
 
-def convert_video_to_frames(videopath, outputdirpath, transform_image_function=None):
+def convert_video_to_frames(videopath, outputdirpath, transform_image_function=None, displayTransformedFrames=False):
     # size = (1280, 720)
-    size = (1280, 720)
     if not os.path.exists(outputdirpath):
         os.mkdir(outputdirpath)
 
     cap = cv2.VideoCapture(videopath)
+    width = int(cap.get(3))  # float
+    height = int(cap.get(4))  # float
+    size = (width, height)
     framesCount = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     with tqdm(total=framesCount, desc=videopath + " frames to -> " + outputdirpath, ncols=120) as pbar1:
         count = 0
@@ -76,6 +78,11 @@ def convert_video_to_frames(videopath, outputdirpath, transform_image_function=N
                     transformed = frame
                 transformed = cv2.resize(transformed, size)
                 cv2.imwrite(os.path.join(outputdirpath, "frame{:d}.jpg".format(count)), transformed)
+                #display converted video
+                if displayTransformedFrames:
+                    cv2.imshow('frame', transformed)
+                    if cv2.waitKey(10) == 27:  # exit if Escape is hit
+                        break
             else:
                 break
             pbar1.update()
@@ -84,7 +91,7 @@ def convert_video_to_frames(videopath, outputdirpath, transform_image_function=N
     cap.release()
 
 
-def transform_and_save_as_video(video, outputfile, transform_image_function=None):
+def transform_and_save_as_video(video, outputfile, transform_image_function=None, deleteFramesAfterTransform=True):
     #     wczytaj obraz
     tempdir = 'tempOpenCv' + str(random.randint(0, 1e10))
     if not os.path.exists(tempdir):
@@ -93,7 +100,8 @@ def transform_and_save_as_video(video, outputfile, transform_image_function=None
     convert_video_to_frames(video, tempdir, transform_image_function)
     convert_frames_to_video(tempdir, outputfile)
     print('video converted {}'.format(outputfile))
-    shutil.rmtree(tempdir)
+    if deleteFramesAfterTransform:
+        shutil.rmtree(tempdir)
 
 
 inputpath = 'frames1'
@@ -106,16 +114,20 @@ fps = 29
 
 # transform_and_save_as_video('DSCN9953.MOV', 'videosmall.avi', background_deletion)
 # transform_and_save_as_video('DSCN9953.MOV', 'videosmallnone.avi')
-movies = os.listdir('resources')
+# movies = os.listdir('resources')
+#
+#
+# start = time.time()
+# with tqdm(total=movies.__len__(), ncols=150, position=0, desc='przetwarzanie katalogu z filmami') as pbar2:
+#     for file in movies:
+#         print(os.path.splitext(os.path.basename(file))[0] + '_backgroundcut.avi' + ' file save')
+#         outputfilename = os.path.splitext(os.path.basename(file))[0] + '_backgroundcut.avi'
+#         transform_and_save_as_video(os.path.join('resources', file), outputfilename, background_deletion)
+#         pbar2.update()
+#
+# end = time.time()
+# print("--- %s seconds ---" % (end - start))
 
 
-start = time.time()
-with tqdm(total=movies.__len__(), ncols=150, position=0, desc='przetwarzanie katalogu z filmami') as pbar2:
-    for file in movies:
-        print(os.path.splitext(os.path.basename(file))[0] + '_backgroundcut.avi' + ' file save')
-        outputfilename = os.path.splitext(os.path.basename(file))[0] + '_backgroundcut.avi'
-        transform_and_save_as_video(os.path.join('resources', file), outputfilename, background_deletion)
-        pbar2.update()
-
-end = time.time()
-print("--- %s seconds ---" % (end - start))
+# convert_video_to_frames('DSCN9955.MOV', 'testframesfuncshadow', background_deletion)
+transform_and_save_as_video('DSCN9955.MOV', 'DSCN9955_backgroundcutwithoutshadow.avi', background_deletion, True)
