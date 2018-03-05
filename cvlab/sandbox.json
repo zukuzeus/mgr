@@ -1,0 +1,473 @@
+{
+    "_type": "diagram",
+    "elements": {
+        "1": {
+            "_type": "element",
+            "class": "ImageLoader",
+            "gui_options": {
+                "position": [
+                    4640,
+                    4600
+                ],
+                "preview_size": 243.27438354492188,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.image_io",
+            "parameters": {
+                "path": "D:/mgr projekt/mgr/project/tempOpenCv1520273215/frame124.jpg"
+            },
+            "unique_id": "241393"
+        },
+        "2": {
+            "_type": "element",
+            "class": "ContrastChange",
+            "gui_options": {
+                "position": [
+                    4960,
+                    4600
+                ],
+                "preview_size": 273.6836814880371,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": false
+            },
+            "module": "cvlab.diagram.elements.color",
+            "parameters": {
+                "factor": 200.0
+            },
+            "unique_id": "406281"
+        },
+        "3": {
+            "_type": "element",
+            "class": "OpenCVErode",
+            "gui_options": {
+                "position": [
+                    5260,
+                    4600
+                ],
+                "preview_size": 216.243896484375,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": false
+            },
+            "module": "cvlab.diagram.elements.filters",
+            "parameters": {
+                "element size": 9,
+                "element type": 0,
+                "iterations": 3
+            },
+            "unique_id": "023455"
+        },
+        "4": {
+            "_type": "element",
+            "class": "ImageLoader",
+            "gui_options": {
+                "position": [
+                    4660,
+                    4940
+                ],
+                "preview_size": 243.27438354492188,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.image_io",
+            "parameters": {
+                "path": "D:/mgr projekt/mgr/project/tempOpenCv1520272972/frame320.jpg"
+            },
+            "unique_id": "054223"
+        },
+        "5": {
+            "_type": "element",
+            "class": "OpenCVMorphologyEx",
+            "gui_options": {
+                "position": [
+                    5000,
+                    4940
+                ],
+                "preview_size": 151.875,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": false
+            },
+            "module": "cvlab.diagram.elements.filters",
+            "parameters": {
+                "element size": 9,
+                "element type": 0,
+                "iterations": 2,
+                "operation": 0
+            },
+            "unique_id": "024797"
+        },
+        "6": {
+            "_type": "element",
+            "class": "OpenCVDilate",
+            "gui_options": {
+                "position": [
+                    5500,
+                    4600
+                ],
+                "preview_size": 192.216796875,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": false
+            },
+            "module": "cvlab.diagram.elements.filters",
+            "parameters": {
+                "element size": 7,
+                "element type": 0,
+                "iterations": 3
+            },
+            "unique_id": "449162"
+        },
+        "7": {
+            "_type": "element",
+            "class": "OpenCVMorphologyEx",
+            "gui_options": {
+                "position": [
+                    5520,
+                    4880
+                ],
+                "preview_size": 192.216796875,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": false
+            },
+            "module": "cvlab.diagram.elements.filters",
+            "parameters": {
+                "element size": 8,
+                "element type": 1,
+                "iterations": 3,
+                "operation": 0
+            },
+            "unique_id": "282623"
+        },
+        "8": {
+            "_type": "element",
+            "class": "CodeElement",
+            "gui_options": {
+                "position": [
+                    5840,
+                    4640
+                ],
+                "preview_size": 120,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.code",
+            "parameters": {
+                "code": "import cv2 as cv2\nimport numpy as np\n\n_, contours, hierarchy = cv2.findContours(image.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)\ncnt = contours[0]\nimg=image.copy()\nfor c in contours:\n\tx,y,w,h = cv2.boundingRect(c)\n\timg+=cv2.rectangle(image,(x,y),(x+w,y+h),(243,20,20),2)\nreturn img",
+                "split_channels": 1
+            },
+            "unique_id": "409470"
+        },
+        "19": {
+            "_type": "element",
+            "class": "OpenCVMorphologyEx",
+            "gui_options": {
+                "position": [
+                    4840,
+                    5320
+                ],
+                "preview_size": 389.6785230562091,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": false
+            },
+            "module": "cvlab.diagram.elements.filters",
+            "parameters": {
+                "element size": 9,
+                "element type": 0,
+                "iterations": 2,
+                "operation": 0
+            },
+            "unique_id": "235234"
+        },
+        "31": {
+            "_type": "element",
+            "class": "ImageLoader",
+            "gui_options": {
+                "position": [
+                    4640,
+                    5320
+                ],
+                "preview_size": 120,
+                "show_parameters": true,
+                "show_preview": false,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.image_io",
+            "parameters": {
+                "path": "C:/Users/danie/Desktop/Bez nazwy.jpg"
+            },
+            "unique_id": "589089"
+        },
+        "37": {
+            "_type": "element",
+            "class": "ImagePreview",
+            "gui_options": {
+                "position": [
+                    5820,
+                    5260
+                ],
+                "preview_size": 346.38090938329697,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.presentation",
+            "parameters": {
+                "type": 0
+            },
+            "unique_id": "998086"
+        },
+        "38": {
+            "_type": "element",
+            "class": "CodeElement",
+            "gui_options": {
+                "position": [
+                    5560,
+                    5260
+                ],
+                "preview_size": 170.859375,
+                "show_parameters": true,
+                "show_preview": false,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.code",
+            "parameters": {
+                "code": "import cv2 as cv2\nimport numpy as np\n\n_, contours, hierarchy = cv2.findContours(image.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)\ncnt = contours[0]\nimg=image.copy()\nfor c in contours:\n\tx,y,w,h = cv2.boundingRect(c)\n\timg+=cv2.rectangle(image,(x,y),(x+w,y+h),(243,20,20),2)\nreturn img",
+                "split_channels": 1
+            },
+            "unique_id": "658675"
+        },
+        "41": {
+            "_type": "element",
+            "class": "ColorConverter",
+            "gui_options": {
+                "position": [
+                    5280,
+                    5320
+                ],
+                "preview_size": 120,
+                "show_parameters": true,
+                "show_preview": false,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.data_types",
+            "parameters": {
+                "code": 2
+            },
+            "unique_id": "378296"
+        },
+        "45": {
+            "_type": "element",
+            "class": "ImagePreview",
+            "gui_options": {
+                "position": [
+                    5640,
+                    5540
+                ],
+                "preview_size": 493.1868807430145,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.presentation",
+            "parameters": {
+                "type": 0
+            },
+            "unique_id": "011467"
+        },
+        "50": {
+            "_type": "element",
+            "class": "CodeElementEx",
+            "gui_options": {
+                "position": [
+                    5360,
+                    5520
+                ],
+                "preview_size": 120,
+                "show_parameters": true,
+                "show_preview": false,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.code",
+            "parameters": {
+                "code": "import cv2 as cv2\nimport numpy as np\n\n_, contours, hierarchy = cv2.findContours(in1.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)\ncnt = contours[0]\nimg=in2.copy()\nfor c in contours:\n\tx,y,w,h = cv2.boundingRect(c)\n\timg+=cv2.rectangle(in2,(x,y),(x+w,y+h),(243,20,20),2)\n\nreturn img, None, None, None",
+                "split_channels": 1
+            },
+            "unique_id": "423495"
+        }
+    },
+    "params": [
+        {
+            "from": 6,
+            "to": 19
+        },
+        {
+            "from": 7,
+            "to": 20
+        },
+        {
+            "from": 8,
+            "to": 21
+        },
+        {
+            "from": 9,
+            "to": 22
+        },
+        {
+            "from": 17,
+            "to": 25
+        },
+        {
+            "from": 18,
+            "to": 26
+        },
+        {
+            "from": 19,
+            "to": 6
+        },
+        {
+            "from": 20,
+            "to": 7
+        },
+        {
+            "from": 21,
+            "to": 8
+        },
+        {
+            "from": 22,
+            "to": 9
+        },
+        {
+            "from": 25,
+            "to": 17
+        },
+        {
+            "from": 26,
+            "to": 18
+        }
+    ],
+    "wires": {
+        "0": {
+            "from_element": 1,
+            "from_output": "output",
+            "to_element": 2,
+            "to_input": "input"
+        },
+        "1": {
+            "from_element": 2,
+            "from_output": "output",
+            "to_element": 6,
+            "to_input": "input"
+        },
+        "2": {
+            "from_element": 2,
+            "from_output": "output",
+            "to_element": 3,
+            "to_input": "input"
+        },
+        "3": {
+            "from_element": 3,
+            "from_output": "output",
+            "to_element": 6,
+            "to_input": "input"
+        },
+        "4": {
+            "from_element": 2,
+            "from_output": "output",
+            "to_element": 7,
+            "to_input": "input"
+        },
+        "5": {
+            "from_element": 4,
+            "from_output": "output",
+            "to_element": 5,
+            "to_input": "input"
+        },
+        "6": {
+            "from_element": 4,
+            "from_output": "output",
+            "to_element": 19,
+            "to_input": "input"
+        },
+        "7": {
+            "from_element": 31,
+            "from_output": "output",
+            "to_element": 19,
+            "to_input": "input"
+        },
+        "8": {
+            "from_element": 38,
+            "from_output": "output",
+            "to_element": 37,
+            "to_input": "input"
+        },
+        "9": {
+            "from_element": 19,
+            "from_output": "output",
+            "to_element": 38,
+            "to_input": "input"
+        },
+        "10": {
+            "from_element": 19,
+            "from_output": "output",
+            "to_element": 8,
+            "to_input": "input"
+        },
+        "11": {
+            "from_element": 6,
+            "from_output": "output",
+            "to_element": 8,
+            "to_input": "input"
+        },
+        "12": {
+            "from_element": 19,
+            "from_output": "output",
+            "to_element": 38,
+            "to_input": "input"
+        },
+        "13": {
+            "from_element": 19,
+            "from_output": "output",
+            "to_element": 41,
+            "to_input": "input"
+        },
+        "14": {
+            "from_element": 41,
+            "from_output": "output",
+            "to_element": 38,
+            "to_input": "input"
+        },
+        "15": {
+            "from_element": 41,
+            "from_output": "output",
+            "to_element": 38,
+            "to_input": "input"
+        },
+        "16": {
+            "from_element": 31,
+            "from_output": "output",
+            "to_element": 50,
+            "to_input": "in2"
+        },
+        "17": {
+            "from_element": 41,
+            "from_output": "output",
+            "to_element": 50,
+            "to_input": "in1"
+        },
+        "18": {
+            "from_element": 50,
+            "from_output": "o1",
+            "to_element": 45,
+            "to_input": "input"
+        }
+    },
+    "zoom_level": 1.0
+}
