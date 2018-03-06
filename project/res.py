@@ -10,29 +10,44 @@ import random
 from tqdm import tqdm
 
 
-# original method
-def frames_to_video(inputpath, outputpath, fps):
-    image_array = []
-    files = [f for f in os.listdir(inputpath) if os.path.isfile(os.path.join(inputpath, f))]
-    files.sort(key=lambda x: int(x[5:-4]))
-    for i in range(len(files)):
-        print("reading file {}".format(files[i]))
-        img = cv2.imread(os.path.join(inputpath, files[i]))
-        height, width, _ = img.shape
-        size = (width, height)
-        img = cv2.resize(img, size)
-        image_array.append(img)
-    fourcc = cv2.VideoWriter_fourcc('D', 'I', 'V', 'X')
-    out = cv2.VideoWriter(outputpath, fourcc, fps, size)
-    for i in range(len(image_array)):
-        print("wrinting frame {} ".format(files[i]))
-        out.write(image_array[i])
-    out.release()
-
-
 # detect background and delete it
 def background_deletion(img, background_substactor=cv2.createBackgroundSubtractorMOG2(detectShadows=False)):
     return background_substactor.apply(img)
+
+
+def morphological_transform(image, rodzaj=cv2.MORPH_OPEN, kernel=np.ones((7, 7), np.uint8), iterations=3):
+    morphed_image = cv2.morphologyEx(image.copy(), rodzaj, kernel, iterations)
+    return morphed_image
+
+
+def to_gray_color_converter(image):
+    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    return gray_image
+
+
+def contours_finder(image):
+    _, contours, _ = cv2.findContours(image.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    if contours is None:
+        return []
+    else:
+        return contours
+
+
+def contours_rect_drawer(image, contours):
+    color = (243, 20, 255)
+    rect_line_size = 2
+    image_with_contours = image
+
+    for c in contours:
+        x, y, w, h = cv2.boundingRect(c)
+        image_with_contours = cv2.rectangle(image_with_contours, (x, y), (x + w, y + h), color, rect_line_size)
+    return image_with_contours
+
+
+def contours_drawer(image, contours):
+    image_with_contours = image
+    cv2.drawContours(image_with_contours, contours, -1, (0, 180, 0), 2)
+    return image_with_contours
 
 
 def convert_frames_to_video(input_dir_path, outputpath):
