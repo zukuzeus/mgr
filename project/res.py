@@ -50,6 +50,12 @@ def contours_drawer(image, contours):
     return image_with_contours
 
 
+def single_frame_object_detector(image):
+    morphed = morphological_transform(image)
+    gray = to_gray_color_converter(morphed)
+    contours = contours_finder(gray)
+
+
 def convert_frames_to_video(input_dir_path, outputpath):
     fps = 29
 
