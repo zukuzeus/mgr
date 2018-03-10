@@ -21,7 +21,7 @@ def morphological_transform(image, rodzaj=cv2.MORPH_OPEN, kernel=np.ones((7, 7),
 
 
 def to_gray_color_converter(image):
-    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray_image = cv2.cvtColor(image.copy(), cv2.COLOR_BGR2GRAY)
     return gray_image
 
 
@@ -62,10 +62,24 @@ def find_contours_for_frames(input_dir_path):
 
     frames_contours = []
 
-    for file in tqdm(filespaths):
+    for file in tqdm(filespaths, desc="finding contours for frames in " + input_dir_path):
         img = cv2.imread(file)
         frames_contours.append(single_frame_object_detector(img))
     return frames_contours
+
+
+def save_frames_with_contours(contours, input_dir_path, output_dir_path):
+    files = get_sorted_filelist_in_dir(input_dir_path)
+    filespaths = [(input_dir_path +"/"+ f) for f in files]
+
+    if not os.path.exists(output_dir_path):
+        os.mkdir(output_dir_path)
+
+    for i in tqdm(range(len(filespaths)), desc="saving frames with contours ->  " + output_dir_path):
+        img = cv2.imread(filespaths[i])
+        imgcontours = contours_rect_drawer(img, contours[i])
+        # cv2.imshow('frame with contours', imgcontours)
+        cv2.imwrite(output_dir_path+'\\'+ "frame{:d}.jpg".format(i), imgcontours)
 
 
 def convert_frames_to_video(input_dir_path, outputpath):
@@ -97,7 +111,7 @@ def get_sorted_filelist_in_dir(input_dir_path):
 
 def read_files_as_images(input_dir_path):
     files = get_sorted_filelist_in_dir(input_dir_path)
-    filespaths = [os.path.join(input_dir_path, f) for f in files]
+    # filespaths = [os.path.join(input_dir_path, f) for f in files]
     images = []
 
     for file in tqdm(files, ncols=100):
@@ -105,7 +119,10 @@ def read_files_as_images(input_dir_path):
     return images
 
 
-def convert_video_to_frames(videopath, outputdirpath, transform_image_function=None, displayTransformedFrames=False):
+def convert_video_to_frames(videopath,
+                            outputdirpath,
+                            transform_image_function=None,
+                            displayTransformedFrames=False):
     # size = (1280, 720)
     if not os.path.exists(outputdirpath):
         os.mkdir(outputdirpath)
@@ -141,11 +158,14 @@ def convert_video_to_frames(videopath, outputdirpath, transform_image_function=N
     cap.release()
 
 
-def convert_video_to_frames_withAndWithoutBackground(videopath, transform_image_function=background_deletion,
-                            displayTransformedFrames=False):
+def convert_video_to_frames_withAndWithoutBackground(videopath,
+                                                     framespath='frames',
+                                                     transformedframespath='framesWithoutBackground',
+                                                     transform_image_function=background_deletion,
+                                                     displayTransformedFrames=False):
     # size = (1280, 720)
-    framesFolder = 'frames'
-    framesWithoutBackground = 'framesWithoutBackground'
+    framesFolder = framespath
+    framesWithoutBackground = transformedframespath
     shutil.rmtree(framesFolder, ignore_errors=True)
     shutil.rmtree(framesWithoutBackground, ignore_errors=True)
     os.mkdir(framesFolder)
