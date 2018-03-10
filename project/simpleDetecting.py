@@ -7,11 +7,11 @@ import numpy as np
 import cv2
 import os
 import random
-from tqdm import tqdm
+from tqdm import tqdm, trange
 
 
 # detect background and delete it
-def background_deletion(img, background_substactor=cv2.createBackgroundSubtractorMOG2(detectShadows=False)):
+def background_deletion(img, background_substactor=cv2.createBackgroundSubtractorMOG2(detectShadows=True)):
     return background_substactor.apply(img)
 
 
@@ -53,14 +53,25 @@ def contours_drawer(image, contours):
 def single_frame_object_detector(image):
     morphed = morphological_transform(image)
     gray = to_gray_color_converter(morphed)
-    contours = contours_finder(gray)
+    return contours_finder(gray)
+
+
+def find_contours_for_frames(input_dir_path):
+    files = get_sorted_filelist_in_dir(input_dir_path)
+    filespaths = [os.path.join(input_dir_path, f) for f in files]
+
+    frames_contours = []
+
+    for file in tqdm(filespaths):
+        img = cv2.imread(file)
+        frames_contours.append(single_frame_object_detector(img))
+    return frames_contours
 
 
 def convert_frames_to_video(input_dir_path, outputpath):
     fps = 29
 
-    files = [f for f in os.listdir(input_dir_path) if os.path.isfile(os.path.join(input_dir_path, f))]
-    files.sort(key=lambda x: int(x[5:-4]))
+    files = get_sorted_filelist_in_dir(input_dir_path)
 
     fourcc = cv2.VideoWriter_fourcc(*'DIVX')
     imgForSize = cv2.imread(os.path.join(input_dir_path, files[0]))
@@ -76,6 +87,22 @@ def convert_frames_to_video(input_dir_path, outputpath):
         img = cv2.resize(img, size)
         out.write(img)
     out.release()
+
+
+def get_sorted_filelist_in_dir(input_dir_path):
+    files = [f for f in os.listdir(input_dir_path) if os.path.isfile(os.path.join(input_dir_path, f))]
+    files.sort(key=lambda x: int(x[5:-4]))
+    return files
+
+
+def read_files_as_images(input_dir_path):
+    files = get_sorted_filelist_in_dir(input_dir_path)
+    filespaths = [os.path.join(input_dir_path, f) for f in files]
+    images = []
+
+    for file in tqdm(files, ncols=100):
+        images.append(cv2.imread(os.path.join(input_dir_path, file)))
+    return images
 
 
 def convert_video_to_frames(videopath, outputdirpath, transform_image_function=None, displayTransformedFrames=False):
@@ -114,6 +141,49 @@ def convert_video_to_frames(videopath, outputdirpath, transform_image_function=N
     cap.release()
 
 
+def convert_video_to_frames_withAndWithoutBackground(videopath, transform_image_function=background_deletion,
+                            displayTransformedFrames=False):
+    # size = (1280, 720)
+    framesFolder = 'frames'
+    framesWithoutBackground = 'framesWithoutBackground'
+    shutil.rmtree(framesFolder, ignore_errors=True)
+    shutil.rmtree(framesWithoutBackground, ignore_errors=True)
+    os.mkdir(framesFolder)
+    os.mkdir(framesWithoutBackground)
+
+    cap = cv2.VideoCapture(videopath)
+
+    width = int(cap.get(3))  # float
+    height = int(cap.get(4))  # float
+    size = (width, height)
+
+    framesCount = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    with tqdm(total=framesCount, desc=videopath + " frames to -> " + framesFolder + ' and ' + framesWithoutBackground,
+              ncols=120) as pbar1:
+        count = 0
+        while cap.isOpened():
+            ret, frame = cap.read()
+            if ret:
+                if transform_image_function is not None:
+                    transformed = transform_image_function(frame)
+                else:
+                    transformed = frame
+                transformed = cv2.resize(transformed, size)
+                cv2.imwrite(os.path.join(framesWithoutBackground, "frame{:d}.jpg".format(count)), transformed)
+                cv2.imwrite(os.path.join(framesFolder, "frame{:d}.jpg".format(count)), frame)
+                # display converted video
+                if displayTransformedFrames:
+                    cv2.imshow('frame', transformed)
+                    if cv2.waitKey(10) == 27:  # exit if Escape is hit
+                        break
+            else:
+                break
+            pbar1.update()
+            count += 1
+    pbar1.close()
+    cap.release()
+
+
 def transform_and_save_as_video(video, outputfile, transform_image_function=None, deleteFramesAfterTransform=True):
     #     wczytaj obraz
     tempdir = 'tempOpenCv' + str(int(time.time()))
@@ -126,19 +196,6 @@ def transform_and_save_as_video(video, outputfile, transform_image_function=None
     if deleteFramesAfterTransform:
         shutil.rmtree(tempdir)
 
-
-inputpath = 'frames1'
-outpath = 'videosmall.avi'
-fps = 29
-
-
-# convert_frames_to_video(inputpath, outpath)
-
-# convert_video_to_frames('DSCN9953.MOV', 'testframesfunc')
-# convert_frames_to_video('testframesfunc', outpath)
-
-# transform_and_save_as_video('DSCN9953.MOV', 'videosmall.avi', background_deletion)
-# transform_and_save_as_video('DSCN9953.MOV', 'videosmallnone.avi')
 
 def convert_videos_in_directory(path_to_directory_string):
     movies = os.listdir(path_to_directory_string)
@@ -158,7 +215,5 @@ def convert_videos_in_directory(path_to_directory_string):
     end = time.time()
     print("--- %s seconds ---" % (end - start))
 
-
-# convert_video_to_frames('DSCN9955.MOV', 'testframesfuncshadow', background_deletion)
-# transform_and_save_as_video('DSCN9955.MOV', 'DSCN9955_backgroundcutwithshadow.avi', background_deletion, False)
-convert_videos_in_directory('resources')
+# full detection pipeline
+# movie -> background subtraction -> detection of objects
