@@ -15,9 +15,10 @@ def background_deletion(img, background_substactor=cv2.createBackgroundSubtracto
     return background_substactor.apply(img)
 
 
-def morphological_transform(image, rodzaj=cv2.MORPH_OPEN, kernel=np.ones((7, 7), np.uint8), iterations=3):
+def morphological_transform(image, rodzaj=cv2.MORPH_OPEN, kernel=np.ones((21, 21), np.uint8), iterations=3):
     morphed_image = cv2.morphologyEx(image.copy(), rodzaj, kernel, iterations)
     return morphed_image
+
 
 
 def to_gray_color_converter(image):

@@ -19,6 +19,14 @@ frameswithcontours = 'processing/framesWithContours'
 contours = sd.find_contours_for_frames(frameswithoutbacground)
 sd.save_frames_with_contours(contours, 'D:\\mgr projekt\\mgr\\project\\processing\\frames',
                              'D:\\mgr projekt\\mgr\\project\\processing\\' + 'framesWithContours')
-# D:\mgr
-# projekt\mgr\project\processing \
-# convert_frames_to_video('testframesfunc', outpath)
+
+
+sd.convert_frames_to_video('D:\\mgr projekt\\mgr\\project\\processing\\' + 'framesWithContours',
+                           'D:\\mgr projekt\\mgr\\project\\processing\\' + 'contours.avi')
+
+# dir = 'D:\\mgr projekt\\mgr\\project\\processing\\' + "frameswithoutBackground"
+# for file in sd.get_sorted_filelist_in_dir(dir):
+#     file = 'D:\\mgr projekt\\mgr\\project\\processing\\' + file
+#     image = cv2.imread(file)
+#     img = sd.morphological_transform(image)
+#     cv2.imshow("morph", img)
