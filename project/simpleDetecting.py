@@ -20,7 +20,6 @@ def morphological_transform(image, rodzaj=cv2.MORPH_OPEN, kernel=np.ones((21, 21
     return morphed_image
 
 
-
 def to_gray_color_converter(image):
     gray_image = cv2.cvtColor(image.copy(), cv2.COLOR_BGR2GRAY)
     return gray_image
@@ -71,7 +70,7 @@ def find_contours_for_frames(input_dir_path):
 
 def save_frames_with_contours(contours, input_dir_path, output_dir_path):
     files = get_sorted_filelist_in_dir(input_dir_path)
-    filespaths = [(input_dir_path +"/"+ f) for f in files]
+    filespaths = [(input_dir_path + "/" + f) for f in files]
 
     if not os.path.exists(output_dir_path):
         os.mkdir(output_dir_path)
@@ -80,7 +79,7 @@ def save_frames_with_contours(contours, input_dir_path, output_dir_path):
         img = cv2.imread(filespaths[i])
         imgcontours = contours_rect_drawer(img, contours[i])
         # cv2.imshow('frame with contours', imgcontours)
-        cv2.imwrite(output_dir_path+'\\'+ "frame{:d}.jpg".format(i), imgcontours)
+        cv2.imwrite(output_dir_path + '\\' + "frame{:d}.jpg".format(i), imgcontours)
 
 
 def convert_frames_to_video(input_dir_path, outputpath):
@@ -108,6 +107,12 @@ def get_sorted_filelist_in_dir(input_dir_path):
     files = [f for f in os.listdir(input_dir_path) if os.path.isfile(os.path.join(input_dir_path, f))]
     files.sort(key=lambda x: int(x[5:-4]))
     return files
+
+
+def get_sorted_filelist_full_paths(input_dir_path):
+    files = get_sorted_filelist_in_dir(input_dir_path)
+    fileswithpaths = [os.path.join(input_dir_path, f) for f in files]
+    return fileswithpaths
 
 
 def read_files_as_images(input_dir_path):
