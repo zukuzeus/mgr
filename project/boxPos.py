@@ -1,3 +1,5 @@
+from tqdm import tqdm
+
 import project.simpleDetecting as sd
 import cv2
 from xml.dom import minidom
@@ -6,8 +8,8 @@ import os
 
 framesContours = 'D:\\mgr projekt\\mgr\\project\\processing\\' + 'frameswithoutBackground'
 frames = 'D:\\mgr projekt\\mgr\\project\\processing\\' + 'frames'
-contours = sd.find_contours_for_frames(framesContours)
 xmlfolderpath = 'D:\\mgr projekt\\mgr\\project\\processing\\' + 'xml'
+contours = sd.find_contours_for_frames(framesContours)
 
 
 # rectanglesForImages = []
@@ -88,33 +90,32 @@ def createXmlNodeForObject(rect):
     return object
 
 
-rectanglesForImages = getRectanglesFromContours(contours)
-
-
-fullpaths = sd.get_sorted_filelist_full_paths(frames)
-def createXmlsForFrames(filePathlist):
+def createXmlsForFrames(rectanglesList):
     xmls = []
     counter = 0
     for filepath in fullpaths:
-        xmlstringfile = appendObjectsToXml(createXmlForFrame(filepath, (1920, 1080, 3)), rectanglesForImages[counter])
+        xmlstringfile = appendObjectsToXml(createXmlForFrame(filepath, (1920, 1080, 3)), rectanglesList[counter])
         xmls.append(xmlstringfile)
         counter += 1
     return xmls
 
 
 # XMLs
-xmls = createXmlsForFrames(fullpaths)
 
 
 def saveXmls(xmlList, path):
+    filename = 'frame'
     counter = 0
-    for xml in xmlList:
-        f = open(os.path.join(path, "frame{}.xml".format(counter)), 'w')
+    for xml in tqdm(xmlList, "zapisywanie plików XML komatybilnych z LabelImg do katalogu: {}".format(path)):
+        f = open(os.path.join(path, "{}{}.xml".format(filename, counter)), 'w')
         f.write(xml)
         f.close()
         counter += 1
 
 
+rectanglesForImages = getRectanglesFromContours(contours)
+fullpaths = sd.get_sorted_filelist_full_paths(frames)
+xmls = createXmlsForFrames(fullpaths, rectanglesForImages)
 saveXmls(xmls, xmlfolderpath)
 # os.path.splitext(os.path.basename("hemanth.txt"))[0] = nazwa pliku ze ścieżki
 f = 1
