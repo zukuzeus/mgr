@@ -4,9 +4,15 @@ import cv2
 
 jsonobj = [[[1,2,3,4],[5,6,7,8]],[[1,2,3,4]],[[1,2,5,7]],[[1,2,3,4],[5,6,7,8],[1,2,3,4],[5,6,7,8]]]
 
-jsonobj2 = []
-for lists in jsonobj:
-    jsonobj2.append([tuple(l) for l in lists])
+
+def rectJsonToRectTuplesList(framesRects):
+    listsOfTuples = []
+    for lists in framesRects:
+        listsOfTuples.append([tuple(l) for l in lists])
+    return listsOfTuples
+
+
+rectJsonToRectTuplesList(jsonobj)
 
 
 framesContours = 'D:\\mgr projekt\\mgr\\project\\processing\\' + 'frameswithoutBackground'
