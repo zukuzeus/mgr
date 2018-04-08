@@ -1,0 +1,5 @@
+grep -rl "verified="
+od filtrowanie plików z pozaznaczanymi zdjęciami które tak oznaczyłem
+
+grep -rl "verified=" | xargs cp -t ./filtrowane
+ skopiuje do katalogu filtrowwane o ile on jest w tym katalogu
