@@ -3,3 +3,9 @@ od filtrowanie plików z pozaznaczanymi zdjęciami które tak oznaczyłem
 
 grep -rl "verified=" | xargs cp -t ./filtrowane
  skopiuje do katalogu filtrowwane o ile on jest w tym katalogu
+
+############################
+trening z katalogu :  cd "D:\mgr projekt\tensorflowmodels\models\research"
+python object_detection/train.py --logtostderr --pipeline_config_path="D:\mgr projekt\mgr\project\processing\training\models\model\ssd_mobilenet_v1_pets.config" --train_dir="D:\mgr projekt\mgr\project\processing\training\models\model\train"
+
+python object_detection/train.py --logtostderr --pipeline_config_path="D:\mgr projekt\mgr\project\processing\training\models\model\faster_rcnn_resnet50_coco_2018_01_28\pipeline.config" --train_dir="D:\mgr projekt\mgr\project\processing\training\models\model\train"
