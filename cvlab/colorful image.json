@@ -1,0 +1,368 @@
+{
+    "_type": "diagram",
+    "elements": {
+        "2": {
+            "_type": "element",
+            "class": "CodeElement",
+            "gui_options": {
+                "position": [
+                    5362,
+                    5012
+                ],
+                "preview_size": 119.6015625,
+                "show_parameters": true,
+                "show_preview": false,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.code",
+            "parameters": {
+                "code": "import cv2 as cv2\nimport numpy as np\n\n_, contours, hierarchy = cv2.findContours(image.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)\ncnt = contours[0]\nimg=image.copy()\nfor c in contours:\n\tx,y,w,h = cv2.boundingRect(c)\n\timg=cv2.rectangle(image,(x,y),(x+w,y+h),(243,20,20),2)\nreturn img",
+                "split_channels": 1
+            },
+            "unique_id": "658675"
+        },
+        "5": {
+            "_type": "element",
+            "class": "ColorConverter",
+            "gui_options": {
+                "position": [
+                    5180,
+                    4956
+                ],
+                "preview_size": 84.0,
+                "show_parameters": true,
+                "show_preview": false,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.data_types",
+            "parameters": {
+                "code": 2
+            },
+            "unique_id": "378296"
+        },
+        "8": {
+            "_type": "element",
+            "class": "ImageLoader",
+            "gui_options": {
+                "position": [
+                    4592,
+                    4998
+                ],
+                "preview_size": 84.0,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.image_io",
+            "parameters": {
+                "path": "C:/Users/danie/Desktop/Bez nazwy.jpg"
+            },
+            "unique_id": "589089"
+        },
+        "9": {
+            "_type": "element",
+            "class": "ColorConverter",
+            "gui_options": {
+                "position": [
+                    4676,
+                    5306
+                ],
+                "preview_size": 105.0,
+                "show_parameters": true,
+                "show_preview": false,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.data_types",
+            "parameters": {
+                "code": 0
+            },
+            "unique_id": "669097"
+        },
+        "10": {
+            "_type": "element",
+            "class": "Forwarder",
+            "gui_options": {
+                "position": [
+                    4872,
+                    5306
+                ],
+                "preview_size": 105.0,
+                "show_parameters": true,
+                "show_preview": false,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.data_flow",
+            "parameters": {},
+            "unique_id": "980423"
+        },
+        "11": {
+            "_type": "element",
+            "class": "ImagePreview",
+            "gui_options": {
+                "position": [
+                    5586,
+                    5012
+                ],
+                "preview_size": 272.77496613934636,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.presentation",
+            "parameters": {
+                "type": 0
+            },
+            "unique_id": "998086"
+        },
+        "12": {
+            "_type": "element",
+            "class": "OpenCVMorphologyEx",
+            "gui_options": {
+                "position": [
+                    4858,
+                    4886
+                ],
+                "preview_size": 272.77496613934636,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": false
+            },
+            "module": "cvlab.diagram.elements.filters",
+            "parameters": {
+                "element size": 7,
+                "element type": 0,
+                "iterations": 3,
+                "operation": 0
+            },
+            "unique_id": "235234"
+        },
+        "13": {
+            "_type": "element",
+            "class": "VideoLoader",
+            "gui_options": {
+                "position": [
+                    4774,
+                    5460
+                ],
+                "preview_size": 120,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": false
+            },
+            "module": "cvlab.diagram.elements.video_io",
+            "parameters": {
+                "device": "D:/mgr projekt/mgr/project/resources/DSCN9955.MOV",
+                "fps": 15,
+                "height": 720,
+                "pause": "",
+                "width": 1280
+            },
+            "unique_id": "656336"
+        },
+        "14": {
+            "_type": "element",
+            "class": "VideoLoader",
+            "gui_options": {
+                "position": [
+                    4480,
+                    5292
+                ],
+                "preview_size": 105.0,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": false
+            },
+            "module": "cvlab.diagram.elements.video_io",
+            "parameters": {
+                "device": "D:/mgr projekt/mgr/project/DSCN9955_backgroundcutwithshadow.avi",
+                "fps": 15,
+                "height": 720,
+                "pause": "",
+                "width": 1280
+            },
+            "unique_id": "707109"
+        },
+        "15": {
+            "_type": "element",
+            "class": "CodeElementEx",
+            "gui_options": {
+                "position": [
+                    5292,
+                    5320
+                ],
+                "preview_size": 84.0,
+                "show_parameters": true,
+                "show_preview": false,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.code",
+            "parameters": {
+                "code": "import cv2 as cv2\nimport numpy as np\n\n_, contours, hierarchy = cv2.findContours(in1.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)\ncnt = contours[0]\ncolor=in4.copy()\nimg=in2.copy()\ncv2.drawContours(img, contours, -1, (0,180,0), 2)\nfor c in contours:\n\tx,y,w,h = cv2.boundingRect(c)\n\tcolor=cv2.rectangle(color,(x,y),(x+w,y+h),(243,20,255),2)\n\nreturn color, None, None, None",
+                "split_channels": 1
+            },
+            "unique_id": "423495"
+        },
+        "16": {
+            "_type": "element",
+            "class": "ImagePreview",
+            "gui_options": {
+                "position": [
+                    5544,
+                    5320
+                ],
+                "preview_size": 272.7749661393463,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.presentation",
+            "parameters": {
+                "type": 0
+            },
+            "unique_id": "011467"
+        },
+        "19": {
+            "_type": "element",
+            "class": "VideoRecorder",
+            "gui_options": {
+                "position": [
+                    5209,
+                    5578
+                ],
+                "preview_size": 120,
+                "show_parameters": true,
+                "show_preview": false,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.video_io",
+            "parameters": {
+                "path": "C:/Users/danie/Desktop/colorful with bee trace.avi",
+                "record": "",
+                "size": [
+                    1280,
+                    720
+                ],
+                "stop": ""
+            },
+            "unique_id": "976339"
+        }
+    },
+    "params": [],
+    "wires": {
+        "0": {
+            "from_element": 8,
+            "from_output": "output",
+            "to_element": 12,
+            "to_input": "input"
+        },
+        "1": {
+            "from_element": 2,
+            "from_output": "output",
+            "to_element": 11,
+            "to_input": "input"
+        },
+        "2": {
+            "from_element": 12,
+            "from_output": "output",
+            "to_element": 2,
+            "to_input": "input"
+        },
+        "3": {
+            "from_element": 12,
+            "from_output": "output",
+            "to_element": 2,
+            "to_input": "input"
+        },
+        "4": {
+            "from_element": 12,
+            "from_output": "output",
+            "to_element": 5,
+            "to_input": "input"
+        },
+        "5": {
+            "from_element": 5,
+            "from_output": "output",
+            "to_element": 2,
+            "to_input": "input"
+        },
+        "6": {
+            "from_element": 5,
+            "from_output": "output",
+            "to_element": 2,
+            "to_input": "input"
+        },
+        "7": {
+            "from_element": 8,
+            "from_output": "output",
+            "to_element": 15,
+            "to_input": "in2"
+        },
+        "8": {
+            "from_element": 5,
+            "from_output": "output",
+            "to_element": 15,
+            "to_input": "in1"
+        },
+        "9": {
+            "from_element": 15,
+            "from_output": "o1",
+            "to_element": 16,
+            "to_input": "input"
+        },
+        "10": {
+            "from_element": 14,
+            "from_output": "output",
+            "to_element": 12,
+            "to_input": "input"
+        },
+        "11": {
+            "from_element": 14,
+            "from_output": "output",
+            "to_element": 15,
+            "to_input": "in2"
+        },
+        "12": {
+            "from_element": 14,
+            "from_output": "output",
+            "to_element": 10,
+            "to_input": "input"
+        },
+        "13": {
+            "from_element": 10,
+            "from_output": "output",
+            "to_element": 15,
+            "to_input": "in2"
+        },
+        "14": {
+            "from_element": 10,
+            "from_output": "output",
+            "to_element": 12,
+            "to_input": "input"
+        },
+        "15": {
+            "from_element": 9,
+            "from_output": "output",
+            "to_element": 10,
+            "to_input": "input"
+        },
+        "16": {
+            "from_element": 14,
+            "from_output": "output",
+            "to_element": 9,
+            "to_input": "input"
+        },
+        "17": {
+            "from_element": 13,
+            "from_output": "output",
+            "to_element": 15,
+            "to_input": "in4"
+        },
+        "18": {
+            "from_element": 16,
+            "from_output": "output",
+            "to_element": 19,
+            "to_input": "input"
+        }
+    },
+    "zoom_level": 0.7000000000000001
+}

@@ -1,0 +1,212 @@
+{
+    "_type": "diagram",
+    "elements": {
+        "1": {
+            "_type": "element",
+            "class": "VideoLoader",
+            "gui_options": {
+                "position": [
+                    4480,
+                    5292
+                ],
+                "preview_size": 105.0,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": false
+            },
+            "module": "cvlab.diagram.elements.video_io",
+            "parameters": {
+                "device": "D:/mgr projekt/mgr/project/DSCN9955_backgroundcutwithshadow.avi",
+                "fps": 15,
+                "height": 720,
+                "pause": "",
+                "width": 1280
+            },
+            "unique_id": "707109"
+        },
+        "2": {
+            "_type": "element",
+            "class": "OpenCVMorphologyEx",
+            "gui_options": {
+                "position": [
+                    4662,
+                    4956
+                ],
+                "preview_size": 272.77496613934636,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": false
+            },
+            "module": "cvlab.diagram.elements.filters",
+            "parameters": {
+                "element size": 7,
+                "element type": 0,
+                "iterations": 3,
+                "operation": 0
+            },
+            "unique_id": "235234"
+        },
+        "3": {
+            "_type": "element",
+            "class": "Forwarder",
+            "gui_options": {
+                "position": [
+                    4886,
+                    5292
+                ],
+                "preview_size": 105.0,
+                "show_parameters": true,
+                "show_preview": false,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.data_flow",
+            "parameters": {},
+            "unique_id": "980423"
+        },
+        "4": {
+            "_type": "element",
+            "class": "ColorConverter",
+            "gui_options": {
+                "position": [
+                    5068,
+                    4956
+                ],
+                "preview_size": 84.0,
+                "show_parameters": true,
+                "show_preview": false,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.data_types",
+            "parameters": {
+                "code": 2
+            },
+            "unique_id": "378296"
+        },
+        "5": {
+            "_type": "element",
+            "class": "VideoLoader",
+            "gui_options": {
+                "position": [
+                    4718,
+                    5418
+                ],
+                "preview_size": 120,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": false
+            },
+            "module": "cvlab.diagram.elements.video_io",
+            "parameters": {
+                "device": "D:/mgr projekt/mgr/project/resources/DSCN9955.MOV",
+                "fps": 15,
+                "height": 720,
+                "pause": "",
+                "width": 1280
+            },
+            "unique_id": "656336"
+        },
+        "8": {
+            "_type": "element",
+            "class": "ImagePreview",
+            "gui_options": {
+                "position": [
+                    5390,
+                    5334
+                ],
+                "preview_size": 272.7749661393463,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.presentation",
+            "parameters": {
+                "type": 0
+            },
+            "unique_id": "011467"
+        },
+        "18": {
+            "_type": "element",
+            "class": "CodeElementEx",
+            "gui_options": {
+                "position": [
+                    5096,
+                    5334
+                ],
+                "preview_size": 84.0,
+                "show_parameters": true,
+                "show_preview": true,
+                "show_sliders": null
+            },
+            "module": "cvlab.diagram.elements.code",
+            "parameters": {
+                "code": "import cv2 as cv2\nimport numpy as np\n\n_, contours, hierarchy = cv2.findContours(in1.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)\ncnt = contours[0]\ncolor=in4.copy()\nimg=in2.copy()\ncv2.drawContours(img, contours, -1, (0,180,0), 2)\nfor c in contours:\n\tx,y,w,h = cv2.boundingRect(c)\n\tcolor=cv2.rectangle(color,(x,y),(x+w,y+h),(243,20,255),2)\n\nreturn color, img, None, None",
+                "split_channels": 1
+            },
+            "unique_id": "423495"
+        }
+    },
+    "params": [],
+    "wires": {
+        "0": {
+            "from_element": 2,
+            "from_output": "output",
+            "to_element": 4,
+            "to_input": "input"
+        },
+        "1": {
+            "from_element": 4,
+            "from_output": "output",
+            "to_element": 18,
+            "to_input": "in1"
+        },
+        "2": {
+            "from_element": 18,
+            "from_output": "o1",
+            "to_element": 8,
+            "to_input": "input"
+        },
+        "3": {
+            "from_element": 1,
+            "from_output": "output",
+            "to_element": 2,
+            "to_input": "input"
+        },
+        "4": {
+            "from_element": 1,
+            "from_output": "output",
+            "to_element": 18,
+            "to_input": "in2"
+        },
+        "5": {
+            "from_element": 1,
+            "from_output": "output",
+            "to_element": 3,
+            "to_input": "input"
+        },
+        "6": {
+            "from_element": 3,
+            "from_output": "output",
+            "to_element": 18,
+            "to_input": "in2"
+        },
+        "7": {
+            "from_element": 3,
+            "from_output": "output",
+            "to_element": 2,
+            "to_input": "input"
+        },
+        "8": {
+            "from_element": 5,
+            "from_output": "output",
+            "to_element": 18,
+            "to_input": "in4"
+        },
+        "9": {
+            "from_element": 1,
+            "from_output": "output",
+            "to_element": 3,
+            "to_input": "input"
+        }
+    },
+    "zoom_level": 0.7000000000000001
+}

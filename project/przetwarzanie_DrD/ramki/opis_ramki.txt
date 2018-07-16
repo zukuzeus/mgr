@@ -1,0 +1,5 @@
+format ramki:
+
+<nr kadru> <polozenie srodka x> <polozenie srodka y> <promien> <1-pszczola, 0-tlo> <nr osobnika> [... 6 pol na razie nieuzywanych ...] <kierunek (0,2pi)> <jakosc>
+
+nazwa pliku filmowego, na ktorym zaznaczono ramki jest w nazwie pliku z ramami. Pliki z ramkami nalezy umiescic w tym samym katalogu co filmy.

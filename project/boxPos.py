@@ -67,7 +67,12 @@ def createXmlForFrame(pathToFile, imgSize):
     return xmlfile
 
 
-def createXmlNodeForObject(rect):
+def create_labelImg_rect_from_opencv(rect):
+    x, y, w, h = rect
+    return x.__str__(), y.__str__(), (x + w).__str__(), (y + h).__str__()
+
+
+def createXmlNodeForObject(rect, fun=create_labelImg_rect_from_opencv):
     object = ET.Element('object')
     name = ET.SubElement(object, 'name')
     name.text = 'bee'
@@ -83,9 +88,9 @@ def createXmlNodeForObject(rect):
     xmax = ET.SubElement(bndbox, 'xmax')
     ymax = ET.SubElement(bndbox, 'ymax')
 
-    x, y, w, h = rect
+    # x, y, w, h = rect
 
-    xmin.text, ymin.text, xmax.text, ymax.text = (x.__str__(), y.__str__(), (x + w).__str__(), (y + h).__str__())
+    xmin.text, ymin.text, xmax.text, ymax.text = fun(rect)
 
     return object
 

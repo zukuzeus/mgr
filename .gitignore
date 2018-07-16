@@ -45,3 +45,8 @@ tmtagsHistory
 *.avi
 *.mp4
 *.jpg
+*.meta
+*.index
+*.pb
+
+resultsOfConversion/
