@@ -6,10 +6,10 @@ from xml.dom import minidom
 import xml.etree.ElementTree as ET
 import os
 
-framesContours = 'D:\\mgr projekt\\mgr\\project\\processing\\' + 'frameswithoutBackground'
-frames = 'D:\\mgr projekt\\mgr\\project\\processing\\' + 'frames'
-xmlfolderpath = 'D:\\mgr projekt\\mgr\\project\\processing\\' + 'xml'
-contours = sd.find_contours_for_frames(framesContours)
+# framesContours = 'D:\\mgr projekt\\mgr\\project\\processing\\' + 'frameswithoutBackground'
+# frames = 'D:\\mgr projekt\\mgr\\project\\processing\\' + 'frames'
+# xmlfolderpath = 'D:\\mgr projekt\\mgr\\project\\processing\\' + 'xml'
+# contours = sd.find_contours_for_frames(framesContours)
 
 
 # rectanglesForImages = []
@@ -35,6 +35,16 @@ def appendObjectsToXml(xml, rectangles):
     root = tree.getroot()
     for r in rectangles:
         root.append(createXmlNodeForObject(r))
+
+    finalFile = ET.tostring(root, encoding='unicode')
+    return finalFile
+
+
+def appendXmlObjectsToXml(xml, xmlNodes):
+    tree = ET.ElementTree(xml)
+    root = tree.getroot()
+    for r in xmlNodes:
+        root.append(r)
 
     finalFile = ET.tostring(root, encoding='unicode')
     return finalFile
@@ -118,9 +128,9 @@ def saveXmls(xmlList, path):
         counter += 1
 
 
-rectanglesForImages = getRectanglesFromContours(contours)
-fullpaths = sd.get_sorted_filelist_full_paths(frames)
-xmls = createXmlsForFrames(fullpaths, rectanglesForImages)
-saveXmls(xmls, xmlfolderpath)
-# os.path.splitext(os.path.basename("hemanth.txt"))[0] = nazwa pliku ze ścieżki
-f = 1
+# rectanglesForImages = getRectanglesFromContours(contours)
+# fullpaths = sd.get_sorted_filelist_full_paths(frames)
+# DSCN9958_xmls = createXmlsForFrames(fullpaths, rectanglesForImages)
+# saveXmls(DSCN9958_xmls, xmlfolderpath)
+# # os.path.splitext(os.path.basename("hemanth.txt"))[0] = nazwa pliku ze ścieżki
+# f = 1
