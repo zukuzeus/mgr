@@ -9,7 +9,7 @@ def read_lines(txtfile):
     return list(filter(None, lines))
 # 'ramki/DSCN9958.MOV_ramki.txt'
 # project/przetwarzanie_DrD/ramki/DSCN9949.MOV_ramki.txt
-txtFileWithFrame = 'D:\\mgr projekt\\mgr\project\\przetwarzanie_DrD\\ramki\\DSCN9950.MOV_ramki.txt'
+txtFileWithFrame = 'D:\\mgr projekt\\mgr\project\\przetwarzanie_DrD\\ramki\\DSCN9954.MOV_ramki.txt'
 print(read_lines(txtFileWithFrame))
 
 
@@ -72,7 +72,7 @@ for frames in groups:
     finalfile = bp.appendXmlObjectsToXml(xmlFile, objectNodes)
     filesToSave.append(finalfile)
 
-pathToSaveXmls = "D:\\mgr projekt\\mgr\\project\\DSCN9950_xmls\\"
+pathToSaveXmls = "D:\\mgr projekt\\mgr\\project\\DSCN9954_xmls\\"
 bp.saveXmls(filesToSave, pathToSaveXmls)
 
 
