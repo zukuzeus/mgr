@@ -7,9 +7,10 @@ def read_lines(txtfile):
     with open(txtfile) as fp:
         lines = fp.read().split("\n")
     return list(filter(None, lines))
-
-
-print(read_lines('ramki/DSCN9958.MOV_ramki.txt'))
+# 'ramki/DSCN9958.MOV_ramki.txt'
+# project/przetwarzanie_DrD/ramki/DSCN9949.MOV_ramki.txt
+txtFileWithFrame = 'D:\\mgr projekt\\mgr\project\\przetwarzanie_DrD\\ramki\\DSCN9958.MOV_ramki.txt'
+print(read_lines(txtFileWithFrame))
 
 
 def convert_line_to_rect_with_bee(line):
@@ -27,14 +28,14 @@ def convert_lines_to_tuples(lines):
     return tuples_list
 
 
-print(convert_lines_to_tuples(read_lines('ramki/DSCN9958.MOV_ramki.txt')))
+print(convert_lines_to_tuples(read_lines(txtFileWithFrame)))
 
 
 def filter_only_bees_detected(listOfTuples):
     return list(filter(lambda tup: tup[4] == '1', listOfTuples))
 
 
-filteredBees = filter_only_bees_detected(convert_lines_to_tuples(read_lines('ramki/DSCN9958.MOV_ramki.txt')))
+filteredBees = filter_only_bees_detected(convert_lines_to_tuples(read_lines(txtFileWithFrame)))
 
 sortedInput = sorted(filteredBees, key=lambda item: int(item[0]))
 
@@ -44,7 +45,7 @@ for k, g in itertools.groupby(sortedInput, key=lambda tup: int(tup[0])):
     groups.append(list(g))  # Store group iterator as a list
     uniquekeys.append(k)
 
-print(filter_only_bees_detected(convert_lines_to_tuples(read_lines('ramki/DSCN9958.MOV_ramki.txt'))))
+print(filter_only_bees_detected(convert_lines_to_tuples(read_lines(txtFileWithFrame))))
 
 print(sortedInput)
 print(groups)
@@ -71,7 +72,8 @@ for frames in groups:
     finalfile = bp.appendXmlObjectsToXml(xmlFile, objectNodes)
     filesToSave.append(finalfile)
 
-bp.saveXmls(filesToSave, "D:\\mgr projekt\\mgr\\project\\DSCN9958_xmls\\")
+pathToSaveXmls = "D:\\mgr projekt\\mgr\\project\\DSCN9949_xmls\\"
+bp.saveXmls(filesToSave, pathToSaveXmls)
 
 
 print(filesToSave)
