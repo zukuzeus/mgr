@@ -63,7 +63,7 @@ def create_rect_from_txt_source(tuple_xyr):
 filesToSave = []
 
 for frames in groups:
-    xmlFile = bp.createXmlForFrame("/frames/frame" + frames[0][0][0], (1920, 1080, 3))
+    xmlFile = bp.createXmlForFrame("/frames/frame" + frames[0][0], (1920, 1080, 3))
     objectNodes = []
     for rect in frames:
         # create file for frame
@@ -71,12 +71,12 @@ for frames in groups:
         objectNodes.append(objectNode)
     finalfile = bp.appendXmlObjectsToXml(xmlFile, objectNodes)
     filesToSave.append(finalfile)
+print(filesToSave)
 
 pathToSaveXmls = "D:\\mgr projekt\\mgr\\project\\DSCN9961_xmls\\"
 bp.saveXmls(filesToSave, pathToSaveXmls)
 
 
-print(filesToSave)
 
 # det.convert_video_to_frames("","")
 
