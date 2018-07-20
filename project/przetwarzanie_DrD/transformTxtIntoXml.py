@@ -7,9 +7,12 @@ def read_lines(txtfile):
     with open(txtfile) as fp:
         lines = fp.read().split("\n")
     return list(filter(None, lines))
+
+
 # 'ramki/DSCN9958.MOV_ramki.txt'
 # project/przetwarzanie_DrD/ramki/DSCN9949.MOV_ramki.txt
-txtFileWithFrame = 'D:\\mgr projekt\\mgr\project\\przetwarzanie_DrD\\ramki\\DSCN9961.MOV_ramki.txt'
+filename = 'DSCN9949'
+txtFileWithFrame = 'D:\\mgr projekt\\mgr\project\\przetwarzanie_DrD\\ramki\\' + filename + '.MOV_ramki.txt'
 print(read_lines(txtFileWithFrame))
 
 
@@ -73,10 +76,8 @@ for frames in groups:
     filesToSave.append(finalfile)
 print(filesToSave)
 
-pathToSaveXmls = "D:\\mgr projekt\\mgr\\project\\DSCN9961_xmls\\"
+pathToSaveXmls = "D:\\mgr projekt\\mgr\\project\\" + filename + "_xmls\\"
 bp.saveXmls(filesToSave, pathToSaveXmls)
-
-
 
 # det.convert_video_to_frames("","")
 
