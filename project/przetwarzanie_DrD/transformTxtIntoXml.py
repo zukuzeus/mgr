@@ -1,3 +1,5 @@
+from tqdm import tqdm
+
 import project.boxPos as bp
 import itertools
 import project.simpleDetecting as det
@@ -31,16 +33,19 @@ def convert_lines_to_tuples(lines):
     return tuples_list
 
 
-print(convert_lines_to_tuples(read_lines(txtFileWithFrame)))
+framesLinesWithData = convert_lines_to_tuples(read_lines(txtFileWithFrame))
+print("lines",framesLinesWithData.__len__(),framesLinesWithData)
 
 
 def filter_only_bees_detected(listOfTuples):
     return list(filter(lambda tup: tup[4] == '1', listOfTuples))
 
 
-filteredBees = filter_only_bees_detected(convert_lines_to_tuples(read_lines(txtFileWithFrame)))
+filteredBees = filter_only_bees_detected(framesLinesWithData)
+print("filtered", filteredBees.__len__(),filteredBees)
 
 sortedInput = sorted(filteredBees, key=lambda item: int(item[0]))
+print("sorted", sortedInput.__len__(), sortedInput)
 
 groups = []
 uniquekeys = []
@@ -48,10 +53,12 @@ for k, g in itertools.groupby(sortedInput, key=lambda tup: int(tup[0])):
     groups.append(list(g))  # Store group iterator as a list
     uniquekeys.append(k)
 
-print(filter_only_bees_detected(convert_lines_to_tuples(read_lines(txtFileWithFrame))))
+print(filter_only_bees_detected(framesLinesWithData))
 
 print(sortedInput)
-print(groups)
+print("groups",groups.__len__(),groups)
+for gr in groups:
+    print(gr)
 
 
 def create_rect_from_txt_source(tuple_xyr):
@@ -65,7 +72,9 @@ def create_rect_from_txt_source(tuple_xyr):
 # bp.crea
 filesToSave = []
 
-for frames in groups:
+pathToSaveXmls = "D:\\mgr projekt\\mgr\\project\\" + filename + "_xmls\\"
+for frames in tqdm(groups):
+    # print(frames[0][0])
     xmlFile = bp.createXmlForFrame("/frames/frame" + frames[0][0], (1920, 1080, 3))
     objectNodes = []
     for rect in frames:
@@ -74,11 +83,11 @@ for frames in groups:
         objectNodes.append(objectNode)
     finalfile = bp.appendXmlObjectsToXml(xmlFile, objectNodes)
     filesToSave.append(finalfile)
-print(filesToSave)
+    bp.saveXml(finalfile,frames[0][0],pathToSaveXmls)
+# print(filesToSave)
 
-pathToSaveXmls = "D:\\mgr projekt\\mgr\\project\\" + filename + "_xmls\\"
-bp.saveXmls(filesToSave, pathToSaveXmls)
-
+# bp.saveXmls(filesToSave, pathToSaveXmls)
+# print(filesToSave)
 # det.convert_video_to_frames("","")
 
 # bp.createXmlNodeForObject()

@@ -6,6 +6,7 @@ from xml.dom import minidom
 import xml.etree.ElementTree as ET
 import os
 
+
 # framesContours = 'D:\\mgr projekt\\mgr\\project\\processing\\' + 'frameswithoutBackground'
 # frames = 'D:\\mgr projekt\\mgr\\project\\processing\\' + 'frames'
 # xmlfolderpath = 'D:\\mgr projekt\\mgr\\project\\processing\\' + 'xml'
@@ -118,15 +119,22 @@ def createXmlsForFrames(rectanglesList):
 # XMLs
 
 
+def saveXml(xml, index, path):
+    filename = 'frame'
+    f = open(os.path.join(path, "{}{}.xml".format(filename, index)), 'w')
+    f.write(xml)
+    f.close()
+
+
 def saveXmls(xmlList, path):
     filename = 'frame'
     counter = 0
     for xml in tqdm(xmlList, "zapisywanie plików XML komatybilnych z LabelImg do katalogu: {}".format(path)):
-        f = open(os.path.join(path, "{}{}.xml".format(filename, counter)), 'w')
-        f.write(xml)
-        f.close()
+        # f = open(os.path.join(path, "{}{}.xml".format(filename, counter)), 'w')
+        # f.write(xml)
+        # f.close()
+        saveXml(xml,counter,path)
         counter += 1
-
 
 # rectanglesForImages = getRectanglesFromContours(contours)
 # fullpaths = sd.get_sorted_filelist_full_paths(frames)
