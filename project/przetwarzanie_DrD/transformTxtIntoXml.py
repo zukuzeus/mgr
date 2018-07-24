@@ -13,7 +13,7 @@ def read_lines(txtfile):
 
 # 'ramki/DSCN9958.MOV_ramki.txt'
 # project/przetwarzanie_DrD/ramki/DSCN9949.MOV_ramki.txt
-filename = 'DSCN9956'
+filename = 'DSCN9958'
 txtFileWithFrame = 'D:\\mgr projekt\\mgr\project\\przetwarzanie_DrD\\ramki\\' + filename + '.MOV_ramki.txt'
 print(read_lines(txtFileWithFrame))
 
