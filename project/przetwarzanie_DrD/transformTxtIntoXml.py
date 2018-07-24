@@ -13,7 +13,7 @@ def read_lines(txtfile):
 
 # 'ramki/DSCN9958.MOV_ramki.txt'
 # project/przetwarzanie_DrD/ramki/DSCN9949.MOV_ramki.txt
-filename = 'DSCN9961'
+filename = 'DSCN9951'
 txtFileWithFrame = 'D:\\mgr projekt\\mgr\project\\przetwarzanie_DrD\\ramki\\' + filename + '.MOV_ramki.txt'
 print(read_lines(txtFileWithFrame))
 
@@ -75,7 +75,9 @@ filesToSave = []
 pathToSaveXmls = "D:\\mgr projekt\\mgr\\project\\" + filename + "_xmls\\"
 for frames in tqdm(groups):
     # print(frames[0][0])
-    xmlFile = bp.createXmlForFrame("/frames/frame" + frames[0][0], (1920, 1080, 3))
+    framePath = "/frames/" + filename + "_" + "frame"
+    frameNum = frames[0][0]
+    xmlFile = bp.createXmlForFrame(framePath + frameNum, (1920, 1080, 3))
     objectNodes = []
     for rect in frames:
         # create file for frame
@@ -83,7 +85,7 @@ for frames in tqdm(groups):
         objectNodes.append(objectNode)
     finalfile = bp.appendXmlObjectsToXml(xmlFile, objectNodes)
     filesToSave.append(finalfile)
-    bp.saveXml(finalfile,frames[0][0],pathToSaveXmls)
+    bp.saveXml(finalfile, frameNum, pathToSaveXmls)
 # print(filesToSave)
 
 # bp.saveXmls(filesToSave, pathToSaveXmls)
