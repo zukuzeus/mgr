@@ -37,7 +37,7 @@ def convert_frames_to_video(input_dir_path, outputpath):
 
 
 def convert_video_to_frames(videopath, outputdirpath, transform_image_function=None):
-    size = (1280, 720)
+    size = (1920, 1080)
     if not os.path.exists(outputdirpath):
         os.mkdir(outputdirpath)
 
