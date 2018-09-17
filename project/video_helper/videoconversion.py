@@ -15,7 +15,7 @@ def background_deletion(img, background_substactor=cv2.createBackgroundSubtracto
 
 
 def convert_frames_to_video(input_dir_path, outputpath):
-    fps = 29
+    fps = 25
 
     files = [f for f in os.listdir(input_dir_path) if os.path.isfile(os.path.join(input_dir_path, f))]
     files.sort(key=lambda x: int(x[5:-4]))
