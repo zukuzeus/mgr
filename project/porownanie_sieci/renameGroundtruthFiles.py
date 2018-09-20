@@ -7,7 +7,15 @@ listOfNames = ast.literal_eval(
 counter = 0
 for file in listOfNames:
     os.rename(
-        os.path.join("C:\mgr\mgr\project\porownanie_sieci\drDębski\groundtruth", str(file).replace(".jpg", ".txt")),
-        os.path.join("C:\mgr\mgr\project\porownanie_sieci\drDębski"
-                     "\groundtruth", 'frame{}.txt'.format(counter)))
+        os.path.join("C:\mgr\mgr\project\porownanie_sieci\drDębski\drDebskitest_xmls",
+                     str(file).replace(".jpg", ".txt")),
+        os.path.join("C:\mgr\mgr\project\porownanie_sieci\drDębski\drDebskitest_xmls",
+                     str(file).replace(".jpg", ".xml")))
+
+    # os.rename(
+    #     os.path.join("C:\mgr\mgr\project\porownanie_sieci\drDębski\drDebskitest_xmls",
+    #                  str("_" + file).replace(".jpg", ".txt")),
+    #     os.path.join("C:\mgr\mgr\project\porownanie_sieci\drDębski\drDebskitest_xmls",
+    #                  str(file).replace(".jpg", ".xml")))
+
     counter += 1

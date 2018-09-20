@@ -121,7 +121,7 @@ def createXmlsForFrames(rectanglesList):
 
 def saveXml(xml, index, path):
     filename = 'frame'
-    f = open(os.path.join(path, "{}{}.xml".format(filename, index)), 'w')
+    f = open(os.path.join(path, "{}{}.xml".format(filename, index)), 'w+')
     f.write(xml)
     f.close()
 

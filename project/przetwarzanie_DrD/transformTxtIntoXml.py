@@ -13,9 +13,9 @@ def read_lines(txtfile):
 
 # 'ramki/DSCN9958.MOV_ramki.txt'
 # project/przetwarzanie_DrD/ramki/DSCN9949.MOV_ramki.txt
-filename = 'DSCN9961'
-file = "C:\\mgr\\weryfikacja detekorów"
-txtFileWithFrame = 'D:\\mgr projekt\\mgr\project\\przetwarzanie_DrD\\ramki\\' + filename + '.MOV_ramki.txt'
+filename = 'test'
+# file = "C:\\mgr\\weryfikacja detekorów"
+txtFileWithFrame = 'C:\\mgr\\mgr\\project\\porownanie_sieci\\drDębski\\test.avi_ramki_detekcji.txt'
 print(read_lines(txtFileWithFrame))
 
 
@@ -73,7 +73,8 @@ def create_rect_from_txt_source(tuple_xyr):
 # bp.crea
 filesToSave = []
 
-pathToSaveXmls = "D:\\mgr projekt\\mgr\\project\\" + filename + "_xmls\\"
+pathToSaveXmls = "C:\\mgr\\mgr\\project\\porownanie_sieci\\drDębski\\drDebski" + filename + "_xmls\\"
+
 for frames in tqdm(groups):
     # print(frames[0][0])
     framePath = "/frames/" + filename + "_" + "frame"
