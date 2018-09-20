@@ -13,7 +13,6 @@ from BoundingBoxes import *
 import matplotlib.pyplot as plt
 from collections import Counter
 from utils import *
-import numpy as np
 import sys
 from sklearn import metrics
 import numpy as np

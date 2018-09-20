@@ -39,7 +39,7 @@ def convert_video_to_frames(videopath, outputdirpath, transform_image_function=N
     cap.release()
 
 def convert_frames_to_video(input_dir_path, outputpath):
-    fps = 25
+    fps = 29
 
     files = [f for f in os.listdir(input_dir_path) if os.path.isfile(os.path.join(input_dir_path, f))]
     files.sort(key=lambda x: int(x[5:-4]))
@@ -60,8 +60,8 @@ def convert_frames_to_video(input_dir_path, outputpath):
     out.release()
 
 
-convert_video_to_frames("C:\\mgr\\drive-download-20180905T195237Z-001\\DSCN9960.MOV",
-                        "C:\\mgr\\drive-download-20180905T195237Z-001\\DSCN9960_frames")
+convert_video_to_frames("C:\\mgr\\drive-download-20180905T195237Z-001\\DSCN9955.MOV",
+                        "C:\\mgr\\drive-download-20180905T195237Z-001\\DSCN9955_frames")
 
 # convert_frames_to_video("C:\\mgr\\drive-download-20180905T195237Z-001\\DSCN9955-testFrames",
 #                         "C:\\mgr\\mgr\\project\\video_helper\\test.avi")
